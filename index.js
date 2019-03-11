@@ -103,7 +103,6 @@ const decorateTreatment = (treatment) => {
     if('doctor' in treatment) {
         new_treatment['doctor'] = {
             "id": treatment.doctor.id,
-            "country_id": treatment.doctor.countryId,
             "first_name": treatment.doctor.firstName,
             "last_name": treatment.doctor.lastName,
             "photo": treatment.doctor.photo,
