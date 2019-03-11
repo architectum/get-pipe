@@ -11,7 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "micro": "^9.3.3",
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.3.0",
+    "now-micro": "^0.3.0"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"
