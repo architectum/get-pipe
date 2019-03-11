@@ -123,12 +123,12 @@ const apiCall = async (path, authorization) => await fetch(`https://api.appotek.
 
 module.exports = async (req, res) => {
     const { authorization } = req.headers;
-    const PATIENT_LIST = /api\/v[0-9]+\/profile\/treatments/;
+    const PATIENT_LIST = /api\/v4\/profile\/treatments/;
 
-    const DOCTOR_ONE = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatments\/[0-9\-a-zA-Z]+/;
-    const DOCTOR_LIST = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatments/;
+    const DOCTOR_ONE = /api\/v4\/patients\/[0-9\-a-zA-Z]+\/treatments\/[0-9\-a-zA-Z]+/;
+    const DOCTOR_LIST = /api\/v4\/patients\/[0-9\-a-zA-Z]+\/treatments/;
 
-    const DOCTOR_CREATE = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatment\/full/;
+    const DOCTOR_CREATE = /api\/v4\/patients\/[0-9\-a-zA-Z]+\/treatment\/full/;
 
     if(req.url.match(PATIENT_LIST) && req.method.toLowerCase() == 'get') {
         console.log("PATIENT_LIST");
