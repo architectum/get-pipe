@@ -15,6 +15,32 @@ const datetime_formatter_func = (datetime) => datetime ? datetime.match(DATETIME
 
 const decoratePrescription = (prescription) => {
     const interval = prescription.interval || {};
+    if(!('start' in interval)){
+        console.log(`
+
+
+
+
+
+
+
+        ================================================================================================
+        `,
+        prescription,
+        `----------------------------------------------------------------------------------------------`,
+        JSON.stringify(prescription),
+        `
+        ================================================================================================
+
+
+
+
+
+
+
+
+        `);
+    }
     const data = prescription.data || {};
     const frequency = prescription.frequency || {};
     const frequency_data = (prescription.type == 'appointment') ? {} : {
@@ -60,6 +86,8 @@ const decoratePrescription = (prescription) => {
     return new_prescription;
 };
 
+
+
 const decorateTreatment = (treatment) => {
     const new_treatment = {
         id: treatment.id,
@@ -72,6 +100,15 @@ const decorateTreatment = (treatment) => {
         prescriptions: 'prescriptions' in treatment ? treatment.prescriptions.map((p) => decoratePrescription(p)) : [],
     };
 
+    if('doctor' in treatment) {
+        new_treatment['doctor'] = {
+            "id": treatment.doctor.id,
+            "country_id": treatment.doctor.countryId,
+            "first_name": treatment.doctor.firstName,
+            "last_name": treatment.doctor.lastName,
+            "photo": treatment.doctor.photo,
+        };
+    }
     return new_treatment;
 };
 
@@ -91,6 +128,9 @@ module.exports = async (req, res) => {
 
     const DOCTOR_ONE = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatments\/[0-9\-a-zA-Z]+/;
     const DOCTOR_LIST = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatments/;
+
+    const DOCTOR_CREATE = /api\/v[0-9]+\/patients\/[0-9\-a-zA-Z]+\/treatment\/full/;
+
     if(req.url.match(PATIENT_LIST) && req.method.toLowerCase() == 'get') {
         console.log("PATIENT_LIST");
         old_api = await apiCall(req.url || '/', authorization);
