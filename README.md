@@ -93,7 +93,7 @@
     }
     ```
 
-- ### Patient creates treatment for himself
+- ### Doctor | create template
     **POST** [/api/v4/profile/template](https://get-pipe.ivanets.now.sh/api/v4/profile/template)
     >### Payload 
     ```js
@@ -172,11 +172,11 @@
     ```
 
 
-- ### Patient creates treatment for himself
+- ### Doctor | get templates by folder
     **POST** [/api/v4/profile/templates?folder=:id](https://get-pipe.ivanets.now.sh/api/v4/profile/templates)
     >### Query
     ```js
-    {}
+    folder - folder_id
     ```
     
     ### Response

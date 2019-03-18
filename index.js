@@ -10,6 +10,7 @@ const fetch = require('node-fetch');
 // const treatments_response = require('./example_treatments_list');
 const transform_in = require('./_doc_post');
 const _doc_templates_get = require('./_doc_templates_get');
+const _doc_templates = require('./_doc_templates');
 
 const API_HOST = process.env.API_HOST || "https://api.appotek.com:3001";
 const DATETIME_RE = /([0-9\-]+T[0-9:]+)\.[0-9]{3}Z/;
@@ -184,7 +185,6 @@ module.exports = async (req, res) => {
         if (req.url.match(PATIENT_CREATE)) {
             console.log("PATIENT_CREATE");
             const body = await json(req);
-
             // const textBody = await json(req);
             // console.log(textBody);
             // const { title, prescriptions } = await json(req);
@@ -204,19 +204,10 @@ module.exports = async (req, res) => {
         if (req.url.match(DOCTOR_CREATE) || req.url.match(DOCTOR_CREATE2)) {
             console.log("DOCTOR_CREATE");
             const body = await json(req);
-
-            // const payload = {
-            //     "title": title,
-            //     "prescriptions": prescriptions.map(p => decoratePrescription(p))
-            // };
-            // const result = decorateTreatmentPrepareToPost(payload)
             const payload = transform_in(body);
-            console.log(JSON.stringify(payload));
-            return await apiCall(req.url || '/', authorization, 'post', JSON.stringify(payload));
-            // if(!('code' in result) && result.code != 200) { return send(res, result.code, result); }
-            // return send(res, 201, result);
+            const resp = await apiCall(req.url || '/', authorization, 'post', JSON.stringify(payload));
+            return { "data": _doc_templates(resp.data) }
         }
-        // transform_in
 
         return send(res, 404);
     }
@@ -243,12 +234,14 @@ module.exports = async (req, res) => {
             });
         }
 
+
         if (req.url.match(DOCTOR_ONE) && METHOD == 'get') {
-            console.log("DOCTOR_ONE");
+            console.log("DOCTOR_GET_TEMPLATES");
             old_api = await apiCall(req.url || '/', authorization);
-            if (!('id' in old_api)) { return send(res, 500, old_api); }
-            return send(res, 200, decorateTreatment(old_api));
+            if (!('data' in old_api)) { return send(res, 500, old_api); }
+            return send(res, 200, { "data": _doc_templates(resp.data) });
         }
+
 
         if (req.url.match(DOCTOR_LIST) && METHOD == 'get') {
             console.log("DOCTOR_LIST");
