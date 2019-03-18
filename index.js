@@ -37,9 +37,9 @@ const decoratePrescription = (prescription) => {
         "end": datetime_formatter_func('end' in interval ? interval['end'] : null),
         "repeats": 'repeats' in interval ? interval['repeats'] : null
     };
-    if (!interval_data.repeats && !!interval_data.start && !!interval_data.end) {
+    // if (!interval_data.repeats && !!interval_data.start && !!interval_data.end) {
 
-    }
+    // }
 
     const new_data = {
         ...data
@@ -57,6 +57,7 @@ const decoratePrescription = (prescription) => {
         ...interval_data,
         treatment: prescription.treatment,
         data: new_data,
+        ...frequency_data,
     };
     if ('id' in prescription) { new_prescription['id'] = prescription.id; }
     if ('createdAt' in prescription) { new_prescription['created'] = datetime_formatter_func(prescription['createdAt']); }
@@ -178,6 +179,7 @@ module.exports = async (req, res) => {
     const DOCTOR_LIST = /api\/v4\/patients\/[0-9\-a-zA-Z]+\/treatments/;
 
     const DOCTOR_CREATE = /api\/v4\/profile\/treatments/;
+    const DOCTOR_GET_TEMPLATE = /api\/v4\/profile\/templates\/[0-9\-a-zA-Z]+/;
     const DOCTOR_GET_TEMPLATES = /api\/v4\/profile\/templates/;
     const DOCTOR_CREATE2 = /api\/v4\/profile\/template/;
 
@@ -213,6 +215,13 @@ module.exports = async (req, res) => {
     }
 
     if (METHOD == 'get') {
+        
+        if (req.url.match(DOCTOR_GET_TEMPLATE)) {
+            console.log("DOCTOR_GET_TEMPLATE");
+            resp = await apiCall(req.url || '/', authorization);
+            if (!('data' in resp)) { return send(res, 500, resp); }
+            return send(res, 200, { "data": {"template": decorateTreatment(resp.data.template, true) }});
+        }
 
         if (req.url.match(DOCTOR_GET_TEMPLATES)) {
             console.log("DOCTOR_GET_TEMPLATES");
