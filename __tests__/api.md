@@ -10,21 +10,90 @@
     Content-Type: application/json
     Authorization: Bearer ':doctor_token'
     ```
-### Type: **`| Prescription |`**:
+### Response
+- **`@http_code`**
+    ```yaml
+    {
+        "status": "ok|error",   # response status: 'ok' or 'error'
+        "message": string,      # response info or error description
+        "data": object          # response {Data}
+    }
+    ```
+- **200** OK
+    ```yaml
+    {
+        "status": "ok",
+        "message": "success",
+        "data": [ ]
+    }
+    ```
+- **201** Creat3e4d
+    ```yaml
+    {
+        "status": "ok",
+        "message": "created",
+        "data": {
+            "id": integer | string
+        }
+    }
+    ```
+- **400** Bad request
+    ```yaml
+    {
+        "status": "error",
+        "message": "request error",
+        "data": { }
+    }
+    ```
+- **403** Forbidden
+    ```yaml
+    {
+        "status": "error",
+        "message": "token verification error",
+        "data": { }
+    }
+    ```
+- **404** Not Found
+    ```yaml
+    {
+        "status": "error",
+        "message": "resource doesn't exist",
+        "data": { }
+    }
+    ```
+- **422** Unprocessable Entity
+    ```yaml
+    {
+        "status": "error",
+        "message": "validation error",
+        "data": { }
+    }
+    ```
+- **500**  Internal Server Error 
+    ```yaml
+    {
+        "status": "error",
+        "message": "server error",
+        "data": { }
+    }
+    ```
+
+### **@** Type **`| Prescription |`**:
 ```yaml
 {
-    "data": object,        # required | data object according to activity
-    "frequency": {         # required | @see Frequency
-        "days": array<Day>
-        "type": "daily"
+    "title": "Treatment Text",  # required | UI Title
+    "type": string              # required | @see Activity::types
+    "data": object,             # required | DataObject according to activity
+    "frequency": {              # required | @see Frequency
+        "days": array<Day>      # required | Day's schedule
+        "type": string          # required | one of "daily|weekly|monthly" 
     },
-    "start": "2019-03-18T15:12:56Z",
-    "end": "2019-04-18T15:12:56Z",
-    "title": "Treatment Text",
-    "type": "text"
+    "start": datetime,          # required | format:YYYY-MM-ddThh:mm:ss+ZZZZ
+    "end": datetime,            # optional | format:YYYY-MM-ddThh:mm:ss+ZZZZ
+    "repeats": intetger,        # optional | if 'end' not provided
 }
 ```
-### Type: **`| Day |`**:
+### **@** Type **`| Day |`**:
 ```yaml
 {
     "day": 1,                       # required | day of week (1 is for Monday)
@@ -39,14 +108,14 @@
 
 ---
 
-# Templates
+# `1.` Templates
 ## Get `Template` list for doctor
 ```elm
 ✔ GET /api/v4/profile/templates 
 ```
 >**<-#** *::* ava test: ( *172ms* )
 ### Request
-- **headers**: `@global`
+- **`@headers`***`: @inherit`*
 
 ## Get `Template` details
 ```elm  
@@ -54,7 +123,7 @@
 ```
 >**<-•** *::* ava test: ( *156ms* )
 ### Request
-- **headers**: `@global`
+- **`@headers`***`: @inherit`*
 
 
 ## Create new `Template` 
@@ -63,7 +132,7 @@
 ✔ POST /api/v4/profile/templates 
 ```
 ### Request
-- **headers**: `@global`
+- **`@headers`***`: @inherit`*
 - **body**
     ```yaml
     {
@@ -73,6 +142,7 @@
     }
     ```
 ### Response
+- **`@code`***`: @inherit`*
 - **201** Created
     ```yaml
     {
@@ -83,10 +153,6 @@
         }
     }
     ```
-- **401**
-- **403**
-- **422**
-- **500**
 
 ## Edit `Template`
 ```elm  
@@ -94,7 +160,7 @@
 ```
 > **•-•** *::* ava test: *257ms*
 ### Request
-- **headers**: `@global`
+- **`@headers`***`: @inherit`*
 - **body**
     ```yaml
     {
@@ -104,6 +170,7 @@
     }
     ```
 ### Response
+- **`@code`***`: @inherit`*
 - **200**
     ```yaml
     {
@@ -114,10 +181,6 @@
         }
     }
     ```
-- **401**
-- **403**
-- **422**
-- **500**
 
 
 ## Remove `Template`
@@ -126,7 +189,7 @@
   ✔ DELETE /api/v4/profile/templates/':template_id'
 ```
 ### Request
-- **headers**: `@global`
+- **`@headers`***`: @inherit`*
 - **body**
     ```yaml
     {
@@ -134,6 +197,7 @@
     }
     ```
 ### Response
+- **`@code`***`: @inherit`*
 - **200**
     ```yaml
     {
@@ -142,7 +206,3 @@
         "data": { }
     }
     ```
-- **401**
-- **403**
-- **422**
-- **500**
