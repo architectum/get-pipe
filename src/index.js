@@ -1,5 +1,5 @@
 const handler = require('./server');
-const { router, get, post, patch, put } = require('microrouter')
+const { router, get, post, patch, put, del } = require('microrouter')
 
 module.exports = router(
   post('/api/v4/patients/:patient/treatment/full/', handler('patient.treatment.new')),
@@ -7,11 +7,14 @@ module.exports = router(
   /* ? */ get('/api/v4/patients/:patient/treatments', handler("doctor.treatment.list")),
   /* ? */ get('/api/v4/patients/:patient/treatments/:id', handler("doctor.treatment.one")),
   /* ? */ post('/api/v4/profile/treatments', handler("doctor.treatment.new")),
+  
   get('/api/v4/profile/templates', handler("doctor.template.list")),
   post('/api/v4/profile/templates', handler("doctor.template.new")),
+  
   get('/api/v4/profile/templates/:id', handler("doctor.template.one")),
   put('/api/v4/profile/templates/:id', handler("doctor.template.edit")),
   patch('/api/v4/profile/templates/:id', handler("doctor.template.edit")),
+  del('/api/v4/profile/templates/:id', handler("doctor.template.delete")),
 
   get('/api/v4', handler()),
 );

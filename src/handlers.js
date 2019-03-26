@@ -56,7 +56,6 @@ module.exports = {
   },
  
   'doctor.template.edit': async (req, res, authorization) => {
-    console.log('DOCTOR_EDIT');
     if(!('id' in req.params)) {
       return [500, {'message': '{{templateId}} not defined'}];
     }
@@ -77,6 +76,26 @@ module.exports = {
     };
     return [200, output];
   },
+
+
+  'doctor.template.delete': async (req, res, authorization) => {
+    if(!('id' in req.params)) {
+      return [500, {'message': '{{templateId}} not defined'}];
+    }
+    const data = await json(req);
+    data['id'] = req.params['id'];
+    const {status, body} = await api.delete(req.url || '/', authorization);
+    if (![200, 201, 304, 301, 302, 204].includes(status)) {
+      return [status, body];
+    }
+    const output = {
+      'status': 'ok',
+      'message': 'success',
+      'data': { }
+    };
+    return [200, output];
+  },
+
 
   'doctor.treatment.new': async (req, res, authorization) => {
     console.log('DOCTOR_CREATE');

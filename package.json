@@ -6,9 +6,9 @@
   "scripts": {
     "start": "micro ./src/index.js",
     "dev": "micro-dev ./src/index.js -w ./src",
-    "test": "node_modules/ava/cli.js -v __tests__/index.js",
-    "test:dev": "node_modules/ava/cli.js -v -w __tests__/index.js",
-    "test:inspect": "inspect node_modules/ava/profile.js __tests__/index.js"
+    "test": "node_modules/ava/cli.js -s __tests__/index.js",
+    "test:dev": "node_modules/ava/cli.js -s -v -w __tests__/index.js",
+    "test:inspect": "inspect node_modules/ava/profile.js -s -v __tests__/index.js"
   },
   "author": "",
   "license": "ISC",

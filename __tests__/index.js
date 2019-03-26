@@ -5,6 +5,7 @@ import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 
 const API_V3 = 'https://api.appotek.com:3001';
+const API_V4 = 'http://0.0.0.0:3000';
 
 const db = low(new FileSync('__tests__/.db'))
 db.defaults({
@@ -57,7 +58,7 @@ const doctorHeaders = async t => {
 async function doctorRequest(t, method = 'GET', path = '', status = false,  options = {}, parseResponse = true) {
 	const headers = await doctorHeaders(t);
 	// console.warn(`:: => ${method} ${path}`);
-    const res = await fetch(`http://0.0.0.0:3000${path}`, {
+    const res = await fetch(`${API_V4}${path}`, {
         'method': method,
 		'headers': headers,
 		...options
@@ -158,10 +159,9 @@ test('-> template edit\t| PUT /api/v4/profile/templates/{{templateId}}', async t
 	const template_id = temp_template_id;
 	const new_title = "Treatment Edited";
 	const template = {
-		"id": template_id,
 		"title": new_title,
 	};
-	const $response = await doctorRequest(t, 'PUT', `/api/v4/profile/templates/${template.id}`, 200, { body: JSON.stringify(template) });
+	const $response = await doctorRequest(t, 'PUT', `/api/v4/profile/templates/${template_id}`, 200, { body: JSON.stringify(template) });
 	const {status, message, data} = $response;
 	t.is(status, 'ok', '"ok" expected in $response.status');
 	t.is(message, 'success', '"success" expected in $response.message');
@@ -169,6 +169,19 @@ test('-> template edit\t| PUT /api/v4/profile/templates/{{templateId}}', async t
 	const $response_check = await doctorRequest(t, 'GET', `/api/v4/profile/templates/${template_id}`, 200);
 	t.true(_.has($response_check, 'data.id'), 'Cannot get data.id on $response');
 	t.is($response_check['data']['title'], new_title, 'Title is NOT updated!');
+});
+
+
+test('-x template delete\t| DELETE /api/v4/profile/templates/{{templateId}}', async t => {
+	const template_id = temp_template_id;
+	const $response = await doctorRequest(t, 'DELETE', `/api/v4/profile/templates/${template_id}`, 200, { body: JSON.stringify({ id: template_id}) });
+	const {status, message, data} = $response;
+	t.is(status, 'ok', '"ok" expected in $response.status');
+	t.is(message, 'success', '"success" expected in $response.message');
+	// t.true(_.has(data, 'id'), '"data" must be an instance of template');
+	// const $response_check = await doctorRequest(t, 'GET', `/api/v4/profile/templates/${template_id}`, 200);
+	// t.true(_.has($response_check, 'data.id'), 'Cannot get data.id on $response');
+	// t.is($response_check['data']['title'], new_title, 'Title is NOT updated!');
 });
 
 
