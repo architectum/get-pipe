@@ -1,12 +1,11 @@
-## Doctor:
 - ### All treatments of patient
-    **GET** [/api/v4/patients/**{{**` patientId `**}}**/treatments](https://get-pipe.ivanets.now.sh/api/v4/patients/{{patientId}}/treatments)
+    **GET** [/api/v4/patients/**{{**` patientId `**}}**/treatments](http://34.245.46.125/api/v4/patients/{{patientId}}/treatments)
 
 - ### Exact treatment
-    **GET** [/api/v4/patients/**{{**` patientId `**}}**/treatments/**{{**` treatmentId `**}}**](https://get-pipe.ivanets.now.sh/api/v4/patients/{{patientId}}/treatments/{{treatmentId}})
+    **GET** [/api/v4/patients/**{{**` patientId `**}}**/treatments/**{{**` treatmentId `**}}**](http://34.245.46.125/api/v4/patients/{{patientId}}/treatments/{{treatmentId}})
 
 - ### Create treatment
-    **POST** [/api/v4/patients/**{{**` patientId `**}}**/treatment/full](https://get-pipe.ivanets.now.sh/api/v4/patients/{{patientId}}/treatment/full)
+    **POST** [/api/v4/patients/**{{**` patientId `**}}**/treatment/full](http://34.245.46.125/api/v4/patients/{{patientId}}/treatment/full)
     >### Payload 
     ```js
     {
@@ -68,14 +67,14 @@
 
 
 - ### All treatments for patient
-    **GET** [/api/v4/profile/treatments](https://get-pipe.ivanets.now.sh/api/v4/profile/treatments)
+    **GET** [/api/v4/profile/treatments](http://34.245.46.125/api/v4/profile/treatments)
 
 
 
 
 
 - ### Patient creates treatment for himself
-    **POST** [/api/v4/profile/templates/**{{**` templateId `**}}**](https://get-pipe.ivanets.now.sh/api/v4/profile/templates/0ea0d3fb-d8ec-4961-89cf-be3891424d43)
+    **POST** [/api/v4/profile/templates/**{{**` templateId `**}}**](http://34.245.46.125/api/v4/profile/templates/0ea0d3fb-d8ec-4961-89cf-be3891424d43)
     >### Payload 
     ```js
     {
@@ -176,7 +175,7 @@
     ```
 
 - ### Doctor | create template
-    **POST** [/api/v4/profile/template](https://get-pipe.ivanets.now.sh/api/v4/profile/template)
+    **POST** [/api/v4/profile/template](http://34.245.46.125/api/v4/profile/template)
     >### Payload 
     ```js
     {
@@ -239,7 +238,7 @@
 
 
 - ### Doctor | get templates by folder
-    **POST** [/api/v4/profile/templates?folder=**{{**` folderId `**}}**](https://get-pipe.ivanets.now.sh/api/v4/profile/templates)
+    **POST** [/api/v4/profile/templates?folder=**{{**` folderId `**}}**](http://34.245.46.125/api/v4/profile/templates)
     >### Query
     ```js
     folder - folder_id

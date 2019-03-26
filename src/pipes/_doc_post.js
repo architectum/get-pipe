@@ -1,6 +1,8 @@
 const jp = require('jsonpath');
 module.exports = function(data) {
-    const {title, saveAsTemplate, prescriptions} = data;
+    let {title, saveAsTemplate, prescriptions} = data;
+    prescriptions = prescriptions || [];
+    saveAsTemplate = saveAsTemplate || false;
     const frequencies = prescriptions.map(p => jp.query(p, '$.frequency.type')[0])
         .map(type => type ? jp.query(prescriptions, '$[*].frequency')[0] : null)
         .map((freq) => freq ? {"type": freq.type, "days": jp.query(freq, '$.days[*].day'), "time": jp.query(freq, '$.days[*].schedule[*].time')} : null);
