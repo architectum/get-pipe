@@ -14,11 +14,12 @@ module.exports = function(data) {
                 "title": p.title || null,
                 "type": p.type || null,
                 "data": p.data || {},
-                "notifications": p.notifications || {},
+                // "notifications": p.notifications || {},
                 "frequency": (i in frequencies && !!frequencies[i]) ? frequencies[i] : {"type": "daily", "days": [], "time": []},
                 "interval": {
                     "start": p.start || null,
-                    "end": p.end || null
+                    "end": p.end || null,
+                    "repeats": p.repeats || null
                 }
             };
         })

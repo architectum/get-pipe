@@ -1,0 +1,44 @@
+{
+  "doctor": {
+    "auth": {
+      "id": "1655f6a0-e89c-4ba0-8bdc-470946fffe09",
+      "name": "ROBOTIC SNEK",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxNjU1ZjZhMC1lODljLTRiYTAtOGJkYy00NzA5NDZmZmZlMDkiLCJyb2xlIjoiZG9jdG9yIiwiZGV2aWNlIjoiSS1ST0JPLVNORUstSS1ERVZJQ0UtU1NTUzEwMTEiLCJhcHAiOiJkb2N0b3IiLCJpYXQiOjE1NTM2MTEwNzIsImV4cCI6MTU1NjIwMzA3MiwiaXNzIjoiYXBwb3RlayJ9.JrxIuzpFksC0F_PGPybdZ6ERmXFPlms6QhzLG3MfiDB2gVz05y1GF2nHkh-GdB1iXF6AklKj7nmpXejtoq9tqfdojZWycsl-tYZTCtbJUXNH86i2-clYBEJt5S4zg-Dc7pqX5NQqSquuDLjj5TAw8nmxJCwUCaOx_wLSbrtLw_xojI6y5Nmm1iDpj31jhE3D7gvmcV5MxoRyFKmbUF-wpdPhTH5uiq16SuD2zl6crodnf_H5XbFu7oZ2zJzKBDdMhB7UpPREzMRULNBCvi2enaBPFDBsHgX-LAbvTjbnMmenyZGZveDWSw9N-2LvZ5esATwdVD_lcJnjB1TYXkhr3uzha6-uD-izGaJZUAyZBYXLn9hQiYQkTCziO46Eghd5l-U-gX9P8gORiODKxyDbLPXUAbaZzUyQVc-4jZrTqWh3bgNGaOFZrYuIJ-_Wt9D0WlCV_rY57LE5Jq5pSAgEOdjzOp8xrZ6TUBFwoeVUIL_1BNb1gDga7llWkGf6rM6aSjL2fKwu2veRMWINZYjaxJFfQ4frYh6iVt7kriibGRtBGsFwVcJn3JQa-6GAOyX7ZFpPdFd3toiyjskimZC_6diqSbLrFwJFIgVVMACL3RrOMSOO1M1MpfyV8HGbkeQMFlCD3oY4zAhppF-flWqjBDLjcKVkBPpP0BxV5mqA-Hg"
+      },
+      "count": 1
+    },
+    "test": {
+      "context": {
+        "diagnosis": "648869c2-306b-4631-bc71-a53bc2354dfc",
+        "template": "f2f8fb68-c811-40b9-8ddf-299fd703f661",
+        "patient": "f9cf6c43-baa9-4f42-a7bb-1d175771eeae"
+      }
+    }
+  },
+  "patient": {
+    "auth": {
+      "id": "f9cf6c43-baa9-4f42-a7bb-1d175771eeae",
+      "name": "Vlad Patient",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWNmNmM0My1iYWE5LTRmNDItYTdiYi0xZDE3NTc3MWVlYWUiLCJyb2xlIjoicGF0aWVudCIsImRldmljZSI6IjM2RUY0MjkzLTZGM0UtNUZEMC1CNTE3LUYyMjE4ODA4QkY0MiIsImFwcCI6InBhdGllbnQiLCJpYXQiOjE1NTM3NTczMzEsImV4cCI6MTU1NjM0OTMzMSwiaXNzIjoiYXBwb3RlayJ9.OYCSWwg5fWpZqAZRioPpShvxaQOMP1EvbVh-fSnFXHwZowQOefoenCUHfdmABnup330Pk5l0Gr38q0X8v-0V8Hz3kti_t87z1IQ3CpQ-Va03isYH4IIhlmDgLDL4_RQZGg2t6WiSqGolsMed2B6oas8ywDkRDo-yLcxbll5aBlW5Ddn0Y9lsDRacvE1TMT8XQQ_Ip6uBH3BciX1Jb5AilJWdnM6AufuI_pNZgx5YKuAw3qnzqvIya_wdM76qYd2G0V65pn-Dlad96BBCmvFtKrsTF6nXsjyvTo8AUoZ_RtDd_yrAY07QQsfpeN2Ic7jnetLXUq1BoqZD3rzUFzUZi0b30M1z-k3r1BWvovoM3YdvxC2SxeQMxhp4OYpSeP4e8F4I1HNfPY15kFDl62UP1uBzh30owSqCQAN95rf0tqAoRBPkvunGonY8OdeOkg8zMm-jPm_55cDAfRw9vEeUYjb2eHryfug_nc88YaYITc7HBjbOmSj-0m8-vMWjIt-xAc8rARpqhFgSfoF81zYFg-xJDQjI1b4oRgtt3wVF4uXFT7RyTcv0cieYoGK6sDahd6OvYS9Q8V86ev05sRz9YwnU-ppXIY6Gj-NzZoo3mQUiDvwVrTSgC49fg4GuRRIL2MBjKJPmN1gh-qYdB_OI8UeZrjVPQ_mTlx_NTme87Bk"
+      },
+      "count": 3
+    },
+    "test": {
+      "context": {
+        "treatment": "8b542b6f-a1f3-4b62-ac42-6e0a8c224642",
+        "patient": "f9cf6c43-baa9-4f42-a7bb-1d175771eeae"
+      }
+    }
+  },
+  "test": {
+    "context": {
+      "diagnosis": "648869c2-306b-4631-bc71-a53bc2354dfc",
+      "patient": "f9cf6c43-baa9-4f42-a7bb-1d175771eeae",
+      "treatment": "8b542b6f-a1f3-4b62-ac42-6e0a8c224642"
+    }
+  }
+}

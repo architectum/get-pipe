@@ -24,4 +24,4 @@ WORKDIR /app
 COPY . ./
 RUN cp -a /tmp/node_modules /app/
 
-CMD ["npm", "run" "start:dev"]
+CMD ["npm", "test"]

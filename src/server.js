@@ -1,10 +1,13 @@
 const {send} = require('micro');
+const jwt = require('./jwt')
 const routes =  require('./handlers');
 const querystring = require('querystring');
 
 module.exports = (routePath) => async (req, res) => {
   const {authorization} = req.headers;
-
+  const {userId, role, app} = jwt(authorization.replace('Bearer ', ''));
+  console.log(userId, role, app);
+  
   const urlParts = req.url.split('?');
   urlParts.shift();
   const {debug} = querystring.parse(urlParts.shift());

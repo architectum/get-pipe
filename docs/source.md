@@ -6,9 +6,9 @@
 ## Global parameters:
 ### Request 
 - **headers**
-    ```elm
+    ```yaml
     Content-Type: application/json
-    Authorization: Bearer ':doctor_token'
+    Authorization: Bearer :doctor_token # api auth_token
     ```
 ### Response
 - **`@http_code`**
@@ -27,7 +27,7 @@
         "data": [ ]
     }
     ```
-- **201** Creat3e4d
+- **201** Created
     ```yaml
     {
         "status": "ok",
@@ -36,6 +36,10 @@
             "id": integer | string
         }
     }
+    ```
+- **204** No Content
+    ```yaml
+    # Empty response for internal integration purpose
     ```
 - **400** Bad request
     ```yaml
@@ -108,7 +112,7 @@
 
 ---
 
-# `1.` Templates
+# `[ ]` Templates
 ## Get `Template` list for doctor
 ```elm
 ✔ GET /api/v4/profile/templates 
@@ -119,18 +123,22 @@
 
 ## Get `Template` details
 ```elm  
-✔ GET /api/v4/profile/templates/':template_id'
+✔ GET /api/v4/profile/templates/:template_id
 ```
 >**<-•** *::* ava test: ( *156ms* )
 ### Request
 - **`@headers`***`: @inherit`*
+- **params**
+    ```yaml
+    template_id: string # Template UUID
+    ```
 
 
 ## Create new `Template` 
-> **•->** *::* ava test: ( *155ms* )
 ```elm  
 ✔ POST /api/v4/profile/templates 
 ```
+> **•->** *::* ava test: ( *155ms* )
 ### Request
 - **`@headers`***`: @inherit`*
 - **body**
@@ -149,18 +157,22 @@
         "status": "ok",
         "message": "success",
         "data": {
-            "id": :template_id # string    Created Template ID
+            "id": string # | Created Template ID
         }
     }
     ```
 
 ## Edit `Template`
 ```elm  
-  ✔ PUT /api/v4/profile/templates/':template_id'
+  ✔ PUT /api/v4/profile/templates/:template_id
 ```
 > **•-•** *::* ava test: *257ms*
 ### Request
 - **`@headers`***`: @inherit`*
+- **params**
+    ```yaml
+    template_id: string # Template UUID
+    ```
 - **body**
     ```yaml
     {
@@ -177,23 +189,27 @@
         "status": "ok",
         "message": "success",
         "data": {
-            "id": :template_id # string    Edited Template ID
+            "id": string # Edited Template ID
         }
     }
     ```
 
 
 ## Remove `Template`
-> **•-x** *::* ava test: *135ms*
 ```elm  
-  ✔ DELETE /api/v4/profile/templates/':template_id'
+  ✔ DELETE /api/v4/profile/templates/:template_id
 ```
+> **•-x** *::* ava test: *135ms*
 ### Request
 - **`@headers`***`: @inherit`*
+- **params**
+    ```yaml
+    template_id: string # Template UUID
+    ```
 - **body**
     ```yaml
     {
-        "id": :template_id # required | string    Template ID to delete
+        "id": string # required | Template ID to delete
     }
     ```
 ### Response
@@ -204,5 +220,55 @@
         "status": "ok",
         "message": "success",
         "data": { }
+    }
+    ```
+
+---
+
+# `[ ]` Treatments
+## Get `Treatment` list
+```elm
+✔ GET /api/v4/profile/treatments
+```
+### Request
+- **`@headers`***`: @inherit`*
+
+## Get `Treatment` details
+```elm  
+✔ GET /api/v4/profile/treatments/:treatment_id
+```
+### Request
+- **`@headers`***`: @inherit`*
+- **params**
+    ```yaml
+    treatment_id: string # Treatment UUID
+    ```
+
+
+## Create new `Treatment` 
+```elm  
+✔ POST /api/v4/profile/treatments
+```
+> **•->** *::* ava test: ( *155ms* )
+### Request
+- **`@headers`***`: @inherit`*
+- **body**
+    ```yaml
+    {
+        "title": string,        # required | Treatment UI Title
+        "patient": string,      # required | patient_id
+        "template": string,     # required | template_id
+    }
+    ```
+### Response
+- **`@code`***`: @inherit`*
+- **201** Created
+    ```yaml
+    {
+        "status": "ok",
+        "message": "success",
+        "data": {
+            "id": string # | Created Treatment ID
+        }
     }
     ```

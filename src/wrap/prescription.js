@@ -1,5 +1,6 @@
-// const DATETIME_NEW_RE = /([0-9\-]+ [0-9:]+)\.[0-9]{3}/;
-// const DATETIME_OLD_RE = /([0-9\-]+T[0-9:]+)\.[0-9]{3}Z/;
+const tv4 = require('tv4');
+const _ = require('lodash');
+
 const datetime_formatter_func = (datetime) => !!datetime ? datetime : (new Date()).toJSON();
 
 function output(prescription) {
@@ -20,10 +21,12 @@ function output(prescription) {
     const interval_data = {
         "start": datetime_formatter_func('start' in interval ? interval['start'] : null),
         "end": datetime_formatter_func('end' in interval ? interval['end'] : null),
-        "repeats": 'repeats' in interval ? interval['repeats'] : null
     };
-    if(!interval_data['repeats']) {
-        interval_data['repeats'] = frequency_data['days'].reduce((count, day) => count+day.schedule.length, 0)
+    if(!!interval['repeats']) {
+        interval_data["repeats"] = parseInt(interval['repeats'], 10)
+    } else {
+        // "repeats": 'repeats' in interval ? interval['repeats'] : 1
+        interval_data['repeats'] = 0 + frequency_data['days'].reduce((count, day) => count+day.schedule.length, 0)
     }
     // if (!interval_data.repeats && !!interval_data.start && !!interval_data.end) {
 
@@ -50,7 +53,7 @@ function output(prescription) {
     };
     if ('id' in prescription) { new_prescription['id'] = prescription.id; }
     if ('createdAt' in prescription) { new_prescription['created'] = datetime_formatter_func(prescription['createdAt']); }
-    if ('notifications' in prescription) { new_prescription['notifications'] = prescription.notifications; }
+    // if ('notifications' in prescription) { new_prescription['notifications'] = prescription.notifications; }
     return new_prescription;
 };
 
@@ -61,30 +64,38 @@ function input(prescription) {
     const end = prescription.end || null;
     const data = prescription.data || {};
     const id = ('id' in prescription) ? prescription['id'] : null;
-    const notifications = ('notifications' in prescription) ? prescription['notifications'] : {}
-    const frequency = ('frequency' in prescription) ? prescription['frequency'] : {}
+    // const notifications = ('notifications' in prescription) ? prescription['notifications'] : {}
+    const frequency = ('frequency' in prescription) && !!prescription['frequency'] ? prescription['frequency'] : {}
     let wrappedFrequency = {};
-    if(type != 'appointment' && !!frequency) {
+    if(type != 'appointment' && !!frequency['type']) {
         wrappedFrequency = {
             "type": frequency.type,
             "days": (type == 'medicine') 
                 ? frequency.days.map((frq) => ({ "day": frq.day, "doses": frq.schedule })) 
                 : frequency.days.map((frq) => frq.day),
             "time": frequency.days.reduce((res, frq) => res.concat(frq.schedule.map(s=>s.time)), []),
-            "startDate": start,
-            "stopAfterDate": end
         }
     }
     const wrapped = {
         "title": title,
         "type": type,
+        "interval": {
+            "start": start,
+            "end": end,
+            "repeats": 1
+        },
         "data": {
             ...data,
-            "frequency": wrappedFrequency
-        }
+        },
     }
+    if(!!wrappedFrequency['id']) {
+        wrapped["frequency"] = wrappedFrequency;
+    } else {
+        wrapped["frequency"] = {"type": "daily", "days": [], "time": []};
+    }
+
     if(!!id) { wrapped["id"] = id; }
-    if(!!notifications) { wrapped["notifications"] = notifications; }
+    // if(!!notifications) { wrapped["notifications"] = notifications; }
     return wrapped;
 }
 

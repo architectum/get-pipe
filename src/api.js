@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const API_HOST = process.env.API_HOST || "https://api.appotek.com:3001";
 const fetch = require('node-fetch');
 

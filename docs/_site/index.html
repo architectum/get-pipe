@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#doctor-api--treatments-and-templates">[ Doctor API ] Treatments and Templates</a>
+<ul>
+<li><a href="#global-parameters">Global parameters:</a></li>
+</ul>
+</li>
+<li><a href="#templates">[ ] Templates</a>
+<ul>
+<li><a href="#get-template-list-for-doctor">Get Template list for doctor</a></li>
+<li><a href="#get-template-details">Get Template details</a></li>
+<li><a href="#create-new-template">Create new Template</a></li>
+<li><a href="#edit-template">Edit Template</a></li>
+<li><a href="#remove-template">Remove Template</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="doctor-api--treatments-and-templates"><code>[ Doctor API ]</code> Treatments and Templates</h1>
+<blockquote>
+<p>API Documentation \</p>
+</blockquote>
+<blockquote>
+<p><strong><code>@version</code></strong>: <strong>v4</strong> \</p>
+</blockquote>
+<blockquote>
+<p><strong><code>@url</code></strong>: <strong><a href="http://34.245.46.125/api/v4">/api/v4</a></strong></p>
+</blockquote>
+<h2 id="global-parameters">Global parameters:</h2>
+<h3 id="request">Request</h3>
+<ul>
+<li><strong>headers</strong></li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token key atrule">Content-Type</span><span class="token punctuation">:</span> application/json
+
+<span class="token key atrule">Authorization</span><span class="token punctuation">:</span> Bearer <span class="token punctuation">:</span>doctor_token  <span class="token comment"># api auth_token</span>
+
+</code></pre>
+<h3 id="response">Response</h3>
+<ul>
+<li><strong><code>@http_code</code></strong></li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok|error"</span><span class="token punctuation">,</span> <span class="token comment"># response status: 'ok' or 'error'</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> string<span class="token punctuation">,</span> <span class="token comment"># response info or error description</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> object  <span class="token comment"># response {Data}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>200</strong> OK</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>201</strong> Creat3e4d</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"created"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+
+<span class="token key atrule">"id"</span><span class="token punctuation">:</span> integer <span class="token punctuation">|</span> string
+
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>400</strong> Bad request</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"request error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>403</strong> Forbidden</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"token verification error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>404</strong> Not Found</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"resource doesn't exist"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>422</strong> Unprocessable Entity</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"validation error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<ul>
+<li><strong>500</strong> Internal Server Error</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"server error"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="type--prescription-"><strong>@</strong> Type <strong><code>| Prescription |</code></strong>:</h3>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"title"</span><span class="token punctuation">:</span> <span class="token string">"Treatment Text"</span><span class="token punctuation">,</span> <span class="token comment"># required | UI Title</span>
+
+<span class="token key atrule">"type"</span><span class="token punctuation">:</span> string  <span class="token comment"># required | @see Activity::types</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> object<span class="token punctuation">,</span> <span class="token comment"># required | DataObject according to activity</span>
+
+<span class="token key atrule">"frequency"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment"># required | @see Frequency</span>
+
+<span class="token key atrule">"days"</span><span class="token punctuation">:</span> array&lt;Day<span class="token punctuation">&gt;</span>  <span class="token comment"># required | Day's schedule</span>
+
+<span class="token key atrule">"type"</span><span class="token punctuation">:</span> string  <span class="token comment"># required | one of "daily|weekly|monthly"</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"start"</span><span class="token punctuation">:</span> datetime<span class="token punctuation">,</span> <span class="token comment"># required | format:YYYY-MM-ddThh:mm:ss+ZZZZ</span>
+
+<span class="token key atrule">"end"</span><span class="token punctuation">:</span> datetime<span class="token punctuation">,</span> <span class="token comment"># optional | format:YYYY-MM-ddThh:mm:ss+ZZZZ</span>
+
+<span class="token key atrule">"repeats"</span><span class="token punctuation">:</span> intetger<span class="token punctuation">,</span> <span class="token comment"># optional | if 'end' not provided</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="type--day-"><strong>@</strong> Type <strong><code>| Day |</code></strong>:</h3>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"day"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment"># required | day of week (1 is for Monday)</span>
+
+<span class="token key atrule">"schedule"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"time"</span><span class="token punctuation">:</span> string % hh<span class="token punctuation">:</span>mm<span class="token punctuation">,</span> <span class="token comment"># required | time for activity</span>
+
+<span class="token key atrule">"dosage"</span><span class="token punctuation">:</span> string  <span class="token comment"># optional | required for medocine type prescription</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">]</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<hr>
+<h1 id="templates"><code>[ ]</code> Templates</h1>
+<h2 id="get-template-list-for-doctor">Get <code>Template</code> list for doctor</h2>
+<pre class=" language-elm"><code class="prism  language-elm">
+✔ GET /api/v4/profile/templates
+
+</code></pre>
+<blockquote>
+<p><strong>&lt;-#</strong>  <em>::</em> ava test: ( <em>172ms</em> )</p>
+</blockquote>
+<h3 id="request-1">Request</h3>
+<ul>
+<li><strong><code>@headers</code></strong><em><code>: @inherit</code></em></li>
+</ul>
+<h2 id="get-template-details">Get <code>Template</code> details</h2>
+<pre class=" language-elm"><code class="prism  language-elm">
+✔ GET /api/v4/profile/templates/:template_id
+
+</code></pre>
+<blockquote>
+<p><strong>&lt;-•</strong>  <em>::</em> ava test: ( <em>156ms</em> )</p>
+</blockquote>
+<h3 id="request-2">Request</h3>
+<ul>
+<li>
+<p><strong><code>@headers</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>params</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token key atrule">template_id</span><span class="token punctuation">:</span> string  <span class="token comment"># Template UUID</span>
+
+</code></pre>
+<h2 id="create-new-template">Create new <code>Template</code></h2>
+<pre class=" language-elm"><code class="prism  language-elm">
+✔ POST /api/v4/profile/templates
+
+</code></pre>
+<blockquote>
+<p><strong>•-&gt;</strong>  <em>::</em> ava test: ( <em>155ms</em> )</p>
+</blockquote>
+<h3 id="request-3">Request</h3>
+<ul>
+<li>
+<p><strong><code>@headers</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>body</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"title"</span><span class="token punctuation">:</span> <span class="token string">"Treatment Created"</span><span class="token punctuation">,</span> <span class="token comment"># required | string</span>
+
+<span class="token key atrule">"diagnosis"</span><span class="token punctuation">:</span> <span class="token punctuation">:</span>diagnosis_id<span class="token punctuation">,</span> <span class="token comment"># required | string</span>
+
+<span class="token key atrule">"prescriptions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span> <span class="token comment"># required | Prescription[]</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="response-1">Response</h3>
+<ul>
+<li>
+<p><strong><code>@code</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>201</strong> Created</p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+
+<span class="token key atrule">"id"</span><span class="token punctuation">:</span> string  <span class="token comment"># | Created Template ID</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h2 id="edit-template">Edit <code>Template</code></h2>
+<pre class=" language-elm"><code class="prism  language-elm">
+✔ PUT /api/v4/profile/templates/:template_id
+
+</code></pre>
+<blockquote>
+<p><strong>•-•</strong>  <em>::</em> ava test: <em>257ms</em></p>
+</blockquote>
+<h3 id="request-4">Request</h3>
+<ul>
+<li>
+<p><strong><code>@headers</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>params</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token key atrule">template_id</span><span class="token punctuation">:</span> string  <span class="token comment"># Template UUID</span>
+
+</code></pre>
+<ul>
+<li><strong>body</strong></li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"title"</span><span class="token punctuation">:</span> <span class="token string">"Treatment Edited"</span><span class="token punctuation">,</span> <span class="token comment"># optional | string</span>
+
+<span class="token key atrule">"folder"</span><span class="token punctuation">:</span> <span class="token punctuation">:</span>folder_id  <span class="token comment"># optional | string</span>
+
+<span class="token key atrule">"prescriptions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token punctuation">]</span> <span class="token comment"># optional | Prescriptions[]</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="response-2">Response</h3>
+<ul>
+<li>
+<p><strong><code>@code</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>200</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+
+<span class="token key atrule">"id"</span><span class="token punctuation">:</span> string  <span class="token comment"># Edited Template ID</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h2 id="remove-template">Remove <code>Template</code></h2>
+<pre class=" language-elm"><code class="prism  language-elm">
+✔ DELETE /api/v4/profile/templates/:template_id
+
+</code></pre>
+<blockquote>
+<p><strong>•-x</strong>  <em>::</em> ava test: <em>135ms</em></p>
+</blockquote>
+<h3 id="request-5">Request</h3>
+<ul>
+<li>
+<p><strong><code>@headers</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>params</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token key atrule">template_id</span><span class="token punctuation">:</span> string  <span class="token comment"># Template UUID</span>
+
+</code></pre>
+<ul>
+<li><strong>body</strong></li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"id"</span><span class="token punctuation">:</span> string  <span class="token comment"># required | Template ID to delete</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h3 id="response-3">Response</h3>
+<ul>
+<li>
+<p><strong><code>@code</code></strong><em><code>: @inherit</code></em></p>
+</li>
+<li>
+<p><strong>200</strong></p>
+</li>
+</ul>
+<pre class=" language-yaml"><code class="prism  language-yaml">
+<span class="token punctuation">{</span>
+
+<span class="token key atrule">"status"</span><span class="token punctuation">:</span> <span class="token string">"ok"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"message"</span><span class="token punctuation">:</span> <span class="token string">"success"</span><span class="token punctuation">,</span>
+
+<span class="token key atrule">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+
+    </div>
+  </div>
+</body>
+
+</html>
