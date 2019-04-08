@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Welcome",
+  "definitions": {
+      "Welcome": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+              "title": {
+                  "type": "string"
+              },
+              "prescriptions": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/Prescription"
+                  }
+              }
+          },
+          "required": [
+              "prescriptions",
+              "title"
+          ],
+          "title": "Welcome"
+      },
+      "Prescription": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+              "type": {
+                  "type": "string"
+              },
+              "title": {
+                  "type": "string"
+              },
+              "data": {
+                  "$ref": "#/definitions/Data"
+              },
+              "notifications": {
+                  "$ref": "#/definitions/Notifications"
+              },
+              "frequency": {
+                  "$ref": "#/definitions/Frequency"
+              },
+              "start": {
+                  "type": "string",
+                  "format": "date-time"
+              },
+              "end": {
+                  "type": "string",
+                  "format": "date-time"
+              },
+              "repeats": {
+                "type": "integer"
+              }
+          },
+          "required": [
+              "data",
+              "frequency",
+              "start",
+              "title",
+              "type"
+          ],
+          "title": "Prescription"
+      },
+      "Data": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+              "type": {
+                  "type": "string"
+              }
+          },
+          "required": [],
+          "title": "Data"
+      },
+      "Frequency": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+              "type": {
+                  "type": "string",
+                  "enum": ["weekly", "daily", "monthly"]
+              },
+              "days": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/Day"
+                  }
+              }
+          },
+          "required": [],
+          "title": "Frequency"
+      },
+      "Day": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+              "day": {
+                  "type": "integer"
+              },
+              "schedule": {
+                  "type": "array",
+                  "items": {
+                      "$ref": "#/definitions/Schedule"
+                  }
+              }
+          },
+          "required": [
+              "day",
+              "schedule"
+          ],
+          "title": "Day"
+      },
+      "Schedule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+              "time": {
+                  "type": "string"
+              },
+              "dose": {
+                "type": "string"
+              }
+          },
+          "required": [
+              "time"
+          ],
+          "title": "Schedule"
+      },
+      "Notifications": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+              "mood": {
+                  "type": "integer"
+              },
+              "status": {
+                  "type": "string"
+              }
+          },
+          "required": [],
+          "title": "Notifications"
+      }
+  }
+}

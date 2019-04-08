@@ -1,0 +1,55 @@
+{
+  "title": "Some treatment2",
+  "prescriptions": [
+      {
+          "title": "survey",
+          "type": "survey",
+          "data": {
+              "questions": [{
+                  "title": "do you believe in mighty god?",
+                  "type": "survey",
+                  "required": false
+              }]
+          },
+          "notifications": {
+              "mood": 1,
+              "status": "alive"
+          },
+          "start": "2019-01-13T00:00:00Z",
+          "end": "2019-01-25T00:00:00Z",
+          "frequency": {
+              "type": "weekly",
+              "days": [
+                  {
+                      "day": 1,
+                      "schedule": [
+                          { "time": "12:00" }
+                      ]
+                  },
+                  {
+                      "day": 2,
+                      "schedule": [
+                          { "time": "12:00" }
+                      ]
+                  },
+                  {
+                      "day": 3,
+                      "schedule": [
+                          { "time": "12:00" }
+                      ]
+                  }
+              ]
+          }
+      },
+      {
+          "title": "Nice text",
+          "type": "text",
+          "data": {
+              "text": "HGello doge. Whatja sodj ;ghi jao;'s are you?"
+          },
+          "start": "2019-01-10T00:00:00Z",
+          "end": "2019-01-25T00:00:00Z",
+          "frequency": {}
+      }
+  ]
+}

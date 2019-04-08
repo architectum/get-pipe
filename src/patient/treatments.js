@@ -1,6 +1,7 @@
 const {json} = require('micro');
 const _ = require('lodash');
-const tv4 = require('tv4');
+const ajv = require('ajv')({ allErrors: true, $data: true });
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-06.json'));
 
 const api = require('../api');
 const __prescriptions_taransformer__ = require('../wrap/prescription').input;
@@ -62,9 +63,9 @@ const treatment_json_schema = {
 
 module.exports = {
   'patient.treatment.new': async (req, res, authorization) => {
-    
     const input = {...await json(req), ...req.params};
-    if(!tv4.validate(input, treatment_json_schema)) {
+    const patient_treatments_schema = require('../../__validators__/patient/treatments/scheme.json');
+    if(!tv4.validate(input, patient_treatments_schema)) {
         return [422, {
             'status': 'error',
             'message': 'validation_error',
@@ -80,7 +81,7 @@ module.exports = {
     });
     const prescriptions_v3 = prescriptions.map(p => __prescriptions_taransformer__(p));
     const payload = JSON.stringify({...input, "prescriptions": prescriptions_v3});
-    return [201, payload]
+    return [201, payload];
     const {status, body} = await api.post(req.url || '/', authorization, payload);
     if (![200, 201, 304, 301, 302, 204].includes(status)) {
       return [status, body];
